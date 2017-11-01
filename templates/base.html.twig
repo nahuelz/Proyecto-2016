@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+		{% block head %}
+		<meta charset="UTF-8">
+
+		<link rel="stylesheet" href="./templates/css/estilo.css">
+		<link rel="stylesheet" href="./templates/css/estilo_menu.css">
+		<link rel="stylesheet" href="./templates/css/estilo_aside.css">
+
+		<link rel="icon" type="image/jpeg" href="./templates/img/logo_informatica_unlp.jpg" />
+
+		<script type="text/javascript" src="./templates/js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="./templates/js/ocultarMostrar.js"></script>
+		<script src="./templates/js/highcharts.js"></script>
+		<script src="./templates/js/exporting.js"></script>
+		{% endblock %}
+
+		<title> {% block title %}{% endblock %} </title>
+	</head>
+
+	<body>
+		<header>
+		{% if titulo != "" %}
+			<h1>{{ titulo }}</h1>
+		{% endif %}
+		</header>
+		
+		{% if message %}
+		<div id="message">
+			{{ message }}
+		</div>
+		{% endif %}
+
+		<nav>
+			{% include 'nav.html.twig' %}
+		</nav>
+
+		<div id="container">
+			{% block container %}{% endblock %}
+		</div>
+
+		<footer>
+		{% block footer %}
+			<p>Desarrollado por @Grupo41.</p> <p>Contacto {{ email }}</p>
+		{% endblock %}
+		</footer>
+
+	</body>
+
+</html>
+
+

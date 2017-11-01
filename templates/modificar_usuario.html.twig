@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modificar Usuario{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+    	{% for user in datosUsuario.usuario %}
+		<article>
+			<h1>Datos del usuario:</h1>
+			<form method="POST" name="modificar_usuario" action="./?action=modificar_usuario_system">
+				<input type="hidden" value="{{token}}" name="token">
+				<input type="hidden" name="id" value="{{ user.id }}">
+				<input type="hidden" name="ubicacion_id" value="{{ user.ubicacion_id }}">
+				<h3>Usuario: "{{ user.usuario }}"</h3>
+				<label>Nombre:</label> 
+				<input type="text" id="nombre" name="nombre" value="{{ user.nombre }}" required autofocus>
+				<label>Apellido:</label> 
+				<input type="text" id="apellido" name="apellido" value="{{ user.apellido }}" required>		
+				<label>Documento:</label> 
+				<input type="text" id="documento" name="documento" value="{{ user.documento }}" required>
+				<label>Email:</label> 
+				<input type="mail" name="email" value="{{ user.email }}" required>
+				<label>Habilitado:</label> 
+				<select name="habilitado" id="habilitado">
+					<option value="1"{% if user.habilitado == 1 %} selected {% endif %}> Habilitado </option>
+					<option value="0"{% if user.habilitado == 0 %} selected {% endif %}> Deshabilitado </option>
+				</select>
+				<label>Telefono:</label> 
+				<input type="text" id="telefono" name="telefono" value="{{ user.telefono }}" required>				
+				<label>Rol:</label>
+				<select id="rol" name="rol" required>
+					{% for rol in roles %}
+						<option value="{{ rol.id }}"{% if rol.id == user.rol_id %} selected {% endif %}>{{ rol.nombre }}</option>
+					{% endfor %}
+				</select>
+				<label>Contraseña:</label>
+				<input type="password" id="password" name="clave" value="{{ user.clave }}" required>
+
+				<fieldset>
+					<legend>Lugar de trabajo:</legend>
+					<p>*Solo para Usuarios Online</p>
+					<h3>Nombre del lugar de trabajo:</h3>
+					<input type="text" name="nombre_trabajo" placeholder="Nombre de la oficina o departamento de trabajo"
+					{% for trabajo in datosUsuario.ubicacion %}
+						value="{{ trabajo.nombre }}"
+					{% endfor %}
+					maxlength="45">
+					<h3>Descripcion del lugar de trabajo:</h3>
+					<input type="text" name="descripcion_trabajo" placeholder="Descripcion de la oficina o departamento de trabajo"
+					{% for trabajo in datosUsuario.ubicacion %}
+						value="{{ trabajo.descripcion }}"
+					{% endfor %}
+					maxlength="255">
+				</fieldset>
+
+				<input class="usuario" type="submit" value="Modificar">
+				<input type="reset" value="Restablecer">
+			</form>
+		</article>
+		{% endfor %}
+	</section>
+{% endblock %}

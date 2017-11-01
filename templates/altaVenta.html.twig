@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alta venta{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+			<h3>Productos</h3>
+			<table>
+				<thead>
+					<tr>
+					<th>Nombre</th>
+					<th>Marca</th>
+					<th>Stock actual</th>
+					<th>Precio de venta</th>
+					<th>Codigo de Barra</th>
+					<th>Cantidad</th>
+					<th>Acciones</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for producto in productos %}
+						<tr>
+							<td> {{ producto.nombre }} </td>
+							<td> {{ producto.marca }} </td>
+							<td> {{ producto.stock }} </td>
+							<td> ${{ producto.precio_venta_unitario}} </td>
+							<td> #{{ producto.codigo_barra }} </td>
+							<form method="POST" action="./?action=alta_venta_system">
+								<input type="hidden" value="{{token}}" name="token">
+								<input type="hidden" name="id" value="{{ producto.id }}" >
+								<input type="hidden" name="precio" value="{{ producto.precio_venta_unitario }}" >
+							<td><input type="number" id="cantidad" name="cantidad" value="0" min="0" max="{{ producto.stock }}"></td>
+							<input type="hidden" id="cod" name="cod" value="{{ producto.codigo_barra }}" >
+							<td class="accionesVenta">
+							{% if producto.stock != 0 %}
+								<input class="altaProducto" type="submit" value="Alta">
+							{% else %}
+								Sin stock!
+							{% endif %}
+							</td>
+							</form>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</article>
+	</section>
+{% endblock %}

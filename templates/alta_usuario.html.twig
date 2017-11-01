@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alta de Usuario{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+			<h1>Alta de Usuario</h1>
+			<form method="POST" name="alta_usuario" action="./?action=alta_usuario_system">
+				<input type="hidden" value="{{token}}" name="token">
+				<input type="hidden" name="login" value="1">
+				<h3>Nombre de Usuario:</h3>
+				<input type="text" id="usuario" name="user" placeholder="Nombre de Usuario" maxlength="45" required autofocus>
+				<h3>Nombre:</h3>
+				<input type="text" id="nombre" name="nombre" placeholder="Nombre" maxlength="45" required>
+				<h3>Apellido:</h3>
+				<input type="text" id="apellido" name="apellido" placeholder="Apellido" maxlength="45" required>
+				<h3>DNI:</h3>
+				<input type="text" id="documento" name="dni" placeholder="DNI" maxlength="9" required>
+				<h3>Acceso:</h3>
+				<p>(Impide el acceso a usuarios no habilitados)</p>
+				<select name="acceso" required>
+					<option value="0">Deshabilitado</option>
+					<option value="1">Habilitado</option>
+				</select>
+				<h3>eMail:</h3>
+				<input type="email" id="email" name="email" placeholder="ejemplo@ejemplo.com" maxlength="255" required>
+				<h3>Contraseña:</h3>
+				<input type="password" id="password" name="password" placeholder="Contraseña" minlength="4" maxlength="45" required>
+				<h3>Telefono:</h3> 
+				<input type="numer" id="telefono" name="telefono" placeholder="Telefono" maxlength="45" required>
+				<h3>Rol del Usuario:</h3>
+				<select id="rol" name="rol" required>
+					<option value="1">Administracion</option>
+					<option value="2">Gestion</option>
+					<option value="3">Usuario Online</option>
+				</select>
+				<fieldset>
+					<legend>Lugar de trabajo:</legend>
+					<p>*Solo los Usuarios Online</p>
+					<h3>Nombre del lugar de trabajo:</h3>
+					<input type="text" name="nombre_trabajo" id="nombre_trabajo" placeholder="Nombre de la oficina o departamento de trabajo" maxlength="45">
+					<h3>Descripcion del lugar de trabajo:</h3>
+					<input type="text" name="descripcion_trabajo" id="descripcion_trabajo" placeholder="Descripcion de la oficina o departamento de trabajo" maxlength="255">
+				</fieldset>
+
+				<input class="usuario" type="submit" value="Dar de alta">
+				<input type="reset" value="Restablecer">
+			</form>
+		</article>
+	</section>
+{% endblock %}

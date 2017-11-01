@@ -1,0 +1,46 @@
+<div id='paginado'>
+	{% set fin = (((cant_total_elementos - 1) // cant_elementos) + 1) %}
+	{% if fin == 0 %}
+		{% set fin = 1 %}
+	{% endif %}
+
+	{% if pagina >= 5 %}
+		{% set desde = (pagina - 4) %}
+	{% else %}
+		{% set desde = 1 %}
+	{% endif %}
+
+	{% if pagina <= (fin-4) %}
+		{% set hasta = (pagina + 4) %}
+	{% else %}
+		{% set hasta = fin %}
+	{% endif %}
+
+	{% if pagina > 1 %}
+		<a class='ant-sig' href="./?action={{ url }}&pagina={{ pagina - 1 }}"> < Anterior </a>
+	{% else %}
+		<a class='ant-sig' href="./?action={{ url }}&pagina={{ pagina }}"> < Anterior </a>
+	{% endif %}
+
+	{% if pagina > 5 %}
+		<a href="./?action={{ url }}&pagina=1">1..</a>
+	{% endif %}
+
+	{% for i in desde .. hasta %}
+		{% if i == pagina %}
+			<a id='actual' href="./?action={{ url }}&pagina={{ i }}">{{ i }}</a>
+		{% else %}
+			<a href="./?action={{ url }}&pagina={{ i }}">{{ i }}</a>
+		{% endif %}
+	{% endfor %}
+
+	{% if pagina < (fin-4) %}
+		<a href="./?action={{ url }}&pagina={{ fin }}">..{{ fin }}</a>
+	{% endif %}
+
+	{% if pagina < fin %}
+		<a class='ant-sig' href="./?action={{ url }}&pagina={{ pagina + 1 }}"> Siguiente > </a>
+	{% else %}
+		<a class='ant-sig' href="./?action={{ url }}&pagina={{ pagina }}"> Siguiente > </a>
+	{% endif %}
+</div>

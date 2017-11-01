@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alta de Compra{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+        <article>
+            {% if menu %}
+                <h3>Productos en el menu del dia</h3>
+                <form method="POST" action="./?action=alta_pedido_system">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Marca</th>
+                            <th>Precio</th>
+                            <th>Detalle</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for prod in menu %}
+                            {% set index = loop.index %}
+                            {% for producto in productos %}
+                                {% if prod.producto_id == producto.id %}
+                                    <tr>
+                                        <td> {{ producto.nombre }} </td>
+                                        <td> {{ producto.marca }} </td>
+                                        <td> ${{ producto.precio_venta_unitario}} </td>
+                                        <td><a href="./?action=detalle_menu&id={{ producto.id }}">Ver detalle</a></td>
+                                        <input type="hidden" name="id{{ index }}" value="{{ producto.id }}" >
+                                        <input type="hidden" name="precio{{ index }}" value="{{ producto.precio_venta_unitario }}" >
+                                        <td><input required id="cantidad" name="cantidad{{ index }}" value="0" min="0" max="{{ producto.stock }}" {% if producto.stock != 0 %} type="number"> {% else %} type="hidden"> Sin stock! {% endif %}</td>
+                                        <input type="hidden" name="cantProductos" value="{{ index }}" >
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <label for="observacion"><h3 style="width: 10%;float: left;">Observacion:</h3>
+                        <input style="float: right;width: 80%;" id="observacion" name="observacion" type="textarea">
+                    </label>
+                    <input class="altaProducto" type="submit" value="Solicitar">
+                </form>
+            {% else %}
+                <h3>Aun no se selecciono el menu para el dia de hoy. </h3>
+            {% endif %}
+        </article>
+    </section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Detalle Producto{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+        <article>
+            {% set total = 0 %}
+            <h1>Detalles del Pedido:</h1>
+            {% for prodDetalle in detalle %}
+                {% set index = loop.index %}
+                <h3>Producto {{ index }}:</h3>
+                {% for prod in productos  %}
+                    {% if prodDetalle.producto_id == prod.id %}
+                        <table id=datos_usuario>
+                            <tr>
+                                <th>Nombre producto</th> <td>{{ prod.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Marca</th> <td>{{ prod.marca }}</td>
+                            </tr>
+                            <tr>
+                                <th>Codigo de barra</th> <td>{{ prod.codigo_barra }}</td>
+                            </tr>
+                            <tr>
+                                <th>Precio venta</th> <td>${{ prod.precio_venta_unitario }}</td>
+                                {% set total = total + prod.precio_venta_unitario %}
+
+                            </tr>
+                            <tr>
+                                <th>Descripcion</th> <td>{{ prod.descripcion }}</td>
+                            </tr>
+                        </table>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            <br>
+            <table id=datos_usuario>
+                <tr>
+                    <th>Total</th> <td>${{ total }}</td>
+                </tr>
+            </table>
+            <br>
+            {% if from == 'gestion' %}
+                <a href="./?action=pedidos&function=gestionar_pedidos"><button>Volver</button></a>
+            {% else %}
+                <a href="./?action=mis_pedidos"><button>Volver</button></a>
+            {% endif %}
+        </article>
+    </section>
+{% endblock %}

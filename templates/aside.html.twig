@@ -1,0 +1,135 @@
+{# MENSAJE #}
+
+{# #}
+{% if tipoUsuario == 'gestion' %}
+	{%
+		set elements = [
+			{'title': 'Productos', 'links': [
+				{'url': './?action=listar_productos', 'name': 'Listado de Productos'},
+				{'url': './?action=alta_producto', 'name': 'Alta'}]
+			},
+			{'title': 'Ventas', 'links': [
+				{'url': './?action=listar_ingresos', 'name': 'Listado de Ingresos'},
+				{'url': './?action=alta_venta', 'name': 'Alta'}]
+			},
+			{'title': 'Compras', 'links': [
+				{'url': './?action=listar_egresos', 'name': 'Listado de Egresos'},
+				{'url': './?action=alta_compra', 'name': 'Alta'}]
+			},
+			{'title': 'Menú', 'links': [
+				{'url': './?action=listar_menus', 'name': 'Listar Menus'},
+				{'url': './?action=alta_menu', 'name': 'Alta'}]
+			},
+			{'title': 'Pedidos Online', 'links': [
+				{'url': './?action=pedidos&function=gestionar_pedidos', 'name': 'Gestionar pedidos'}]
+			},
+			{'title': 'Listados', 'links': [
+				{'url': './?action=listar_productos_faltantes', 'name': 'Listado de productos faltantes'},
+				{'url': './?action=listar_productos_stockMin', 'name': 'Listado de productos con stock mínimo'}]
+			},
+			{'title': 'Balance', 'links': [
+				{'url': './?action=listarGanancias', 'name': 'Ganancias'},
+				{'url': './?action=listarVentas', 'name': 'Ventas'}]
+			},
+		]
+	%}
+{% elseif tipoUsuario == 'admin' %}
+	{% 	
+		set elements = [
+			{'title': 'Productos', 'links': [
+				{'url': './?action=listar_productos', 'name': 'Listado de Productos'},
+				{'url': './?action=alta_producto', 'name': 'Alta'}]
+			},
+			{'title': 'Ventas', 'links': [
+				{'url': './?action=listar_ingresos', 'name': 'Listado de Ingresos'},
+				{'url': './?action=alta_venta', 'name': 'Alta'}]
+			},
+			{'title': 'Compras', 'links': [
+				{'url': './?action=listar_egresos', 'name': 'Listado de Egresos'},
+				{'url': './?action=alta_compra', 'name': 'Alta'}]
+			},
+			{'title': 'Menú', 'links': [
+				{'url': './?action=listar_menus', 'name': 'Listar Menus'},
+				{'url': './?action=alta_menu', 'name': 'Alta'}]
+			},
+			{'title': 'Usuarios', 'links': [
+				{'url': './?action=listar_usuarios', 'name': 'Listar Usuarios'},
+				{'url': './?action=alta_usuario', 'name': 'Alta'}]
+			},
+			{'title': 'Pedidos Online', 'links': [
+				{'url': './?action=pedidos&function=gestionar_pedidos', 'name': 'Gestionar pedidos'}]
+			},
+			{'title': 'Configuración', 'links': [
+				{'url': './?action=configuracion', 'name': 'Configuración del sistema'}]
+			},
+			{'title': 'Balance', 'links': [
+				{'url': './?action=listarGanancias', 'name': 'Ganancias'},
+				{'url': './?action=listarVentas', 'name': 'Ventas'}]
+			},
+		]
+	%}
+{% elseif tipoUsuario == 'online' %}
+	{%
+	set elements = [
+		{'title': 'Pedidos Online', 'links': [
+			{'url': './?action=menu_del_dia', 'name': 'Menu del dia'},
+			{'url': './?action=mis_pedidos', 'name': 'Mis pedidos'}]
+		},
+	]
+	%}
+{% else %}
+	{%
+		set elements = [
+			{'title': 'Productos', 'links': [
+				{'url': './?action=listar_productos', 'name': 'Listado de Productos'},
+				{'url': './?action=alta_producto', 'name': 'Alta'}]
+			},
+			{'title': 'Ventas', 'links': [
+				{'url': './?action=listar_ingresos', 'name': 'Listado de Ingresos'},
+				{'url': './?action=alta_venta', 'name': 'Alta'}]
+			},
+			{'title': 'Compras', 'links': [
+				{'url': './?action=listar_egresos', 'name': 'Listado de Egresos'},
+				{'url': './?action=alta_compra', 'name': 'Alta'}]
+			},
+				{'title': 'Menú', 'links': [
+				{'url': './?action=listar_menus', 'name': 'Listar Menus'},
+				{'url': './?action=alta_menu', 'name': 'Alta'}]
+			},
+			{'title': 'Usuarios', 'links': [
+				{'url': './?action=listar_usuarios', 'name': 'Listar Usuarios'},
+				{'url': './?action=alta_usuario', 'name': 'Alta'}]
+			},
+			{'title': 'Pedidos Online', 'links': [
+				{'url': '#', 'name': 'Alta'},
+				{'url': '#', 'name': 'Baja'},
+				{'url': '#', 'name': 'Modificacion'}]
+			},
+			{'title': 'Listados', 'links': [
+				{'url': './?action=listar_productos_faltantes', 'name': 'Listado de productos faltantes'},
+				{'url': './?action=listar_productos_stockMin', 'name': 'Listado de productos con stock mínimo'}]
+			},
+			{'title': 'Configuración', 'links': [
+				{'url': './?action=configuracion', 'name': 'Configuración del sistema'}]
+			},
+		]
+	%}
+{% endif %}
+
+{% if isLogged %}
+<aside>
+	<ul>
+	
+	{% for item in elements %}
+		<li id='{{ item.title }}01' class="deslegable01 hidden"><a href="javascript:void(0);" onclick="ocultarMostrarAside('{{ item.title }}')">&#x25B4; {{ item.title }}</a></li>
+		<li id='{{ item.title }}02' class="deslegable02 "><a href="javascript:void(0);" onclick="ocultarMostrarAside('{{ item.title }}')">&#x25BE; {{ item.title }}</a></li>
+		
+		<ul id='{{ item.title }}' class="hidden">
+		{% for link in item.links %}
+			<li class="deslegable"><a href='{{ link.url }}'>{{ link.name }}</a></li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+	</ul>
+</aside>
+{% endif %}

@@ -1,0 +1,29 @@
+<ul>
+	<li class="der">
+		{% if not isLogged %}
+			{% if sitio == "Deshabilitado" %}
+				<a title='Login' href='./?action=login'>Ingresar administrador</a>
+			{% else %}
+				<a title='registro' href='./?action=registro'>Registro</a>
+				<a title='Login' href='./?action=login'>Ingresar</a>
+			{% endif %}
+		{% else %}
+			<a title='Logout' href='./?action=logout'>Cerrar sesion</a>
+		{% endif %}
+	</li>
+
+	<li class="izq hiddenIconNav"><a id="icono" href="javascript:void(0);" onclick="ocultarMostrarNav('responsiveNav')">&#9776;</a></li>
+	<ul id="responsiveNav" class="hiddenNav">
+		<li class="izq ancho_total"><a title="Inicio" href="./index.php">Inicio</a></li>
+		{% if isLogged %}
+			{% if tipoUsuario == 'gestion' %}
+				<li class="izq ancho_total"><a title="Listar Producto" href="./?action=listar_productos">Gestion</a></li>
+			{% elseif tipoUsuario == 'admin' %}
+				<li class="izq ancho_total"><a title="Listar Producto" href="./?action=listar_productos">Administrador</a></li>
+				<li class="izq ancho_total"><a title="Listar Producto" href="./?action=enviar_menu">Enivar menu del dia</a></li>
+			{% else %}
+				<li class="izq ancho_total"><a title="Listar Producto" href="./?action=menu_del_dia">Usuario Online</a></li>
+			{% endif %}
+		{% endif %}
+	</ul>
+</ul>

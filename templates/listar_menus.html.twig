@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Listar productos{% endblock %}
+
+{% block container %}
+    {% if mensaje %}
+        {% for m in mensaje %}
+            <div id="message">
+                {{ m }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+        <article>
+                <div>
+                    <form method="POST" action="./?action=listar_menus">
+                        <label for="fecha"><h3>Buscar menu por fecha: </h3>
+                            <input class="buscarMenu" value="{{ fecha | date("Y-m-d") }}" type="date" name="fecha" id="fecha">
+                        </label>
+                        <input class="buscarMenu" type="submit" value="Buscar" id="buscar">
+                    </form>
+                </div>
+            {% if menus %}
+                <h3>Menu del dia {{ fecha | date("d/m/Y", "America/Argentina/Buenos_Aires") }}</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Fecha</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for menu in menus %}
+                        <tr>
+                            <td> {{ menu.nombreProducto[0][0]  }} </td>
+                            <td> {{ menu.fecha|date("d/m/Y")  }} </td>
+                            <td class="acciones">
+                               <a href="./?action=detalle_producto&id={{ menu.producto_id }}"><button class="buttonVerDetalle">Detalles</button></a>
+                                <!--<a href="./?action=modificar_producto&id={{ menu.producto_id }}"><button class="buttonModificar">Modificar</button></a> -->
+                                <a href="javascript:eliminar({{ menu.id }}, 'eliminar_menu')"><button class="buttonEliminar">Eliminar</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><a href="./?action=alta_menu&fecha={{ fecha }}"><input type="submit" value="Agregar productos al menu"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                {% set url = 'listar_menus' %}
+                {% include 'paginado.html.twig' %}
+            {% else %}
+                <h3>Aun no hay un menu para el dia {{ fecha | date("d/m/Y", "America/Argentina/Buenos_Aires") }}</h3>
+                <a href="./?action=alta_menu"><input type="submit" value="Agregar menu"></a>
+            {% endif %}
+        </article>
+    </section>
+{% endblock %}

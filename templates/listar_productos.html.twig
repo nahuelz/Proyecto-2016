@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Listar productos{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+		    {% if productos %}
+    			<h3>Listado de productos</h3>
+    			<table>
+    				<thead>
+    					<tr>
+    					<th>Nombre</th>
+    					<th>Marca</th>
+    					<th>Stock actual</th>
+    					<th>Precio de venta</th>
+    					<th>Acciones</th>
+    					</tr>
+    				</thead>
+    
+    				<tbody>
+    					{% for producto in productos %}
+    						<tr>
+    							<td> {{ producto.nombre }} </td>
+    							<td> {{ producto.marca }} </td>
+    							<td> {{ producto.stock }} </td>
+    							<td> ${{ producto.precio_venta_unitario}} </td>
+    							<td class="acciones">
+    								<a href="./?action=detalle_producto&id={{ producto.id }}"><button class="buttonVerDetalle">Detalles</button></a>
+    								<a href="./?action=modificar_producto&id={{ producto.id }}"><button class="buttonModificar">Modificar</button></a>
+    								<a href="javascript:eliminar({{ producto.id }}, 'eliminar_producto')"><button class="buttonEliminar">Eliminar</button></a>
+    							</td>
+    						</tr>
+    					{% endfor %}
+    					<tr>
+    						<td></td>
+    						<td></td>
+    						<td></td>
+    						<td></td>
+    						<td><a href="./?action=alta_producto"><input type="submit" value="Agregar producto"></a></td>
+    					</tr>
+    				</tbody>
+    			</table>
+    			{% set url = 'listar_productos' %}
+    			{% include 'paginado.html.twig' %}
+    		{% else %}
+    		    <h3>No existen productos registrados.</h3>
+    		{% endif %}
+		</article>
+	</section>
+{% endblock %}

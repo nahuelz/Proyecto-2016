@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alta de Compra{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+        <article>
+            <div>
+                <form method="POST" action="./?action=mis_pedidos">
+                    <label for="fecha"><h3>Buscar pedidos por fecha: </h3>
+                        <input class="buscarMenu" value="{{ fecha | date("Y-m-d") }}" type="date" name="fecha" id="fecha">
+                    </label>
+                    <input class="buscarMenu" type="submit" value="Buscar" id="buscar">
+                </form>
+            </div>
+            {% if pedidos %}
+                {% if vista == 'gestion' %}
+                    <h3>Gestionar pedidos</h3>
+                {% else %}
+                    <h3>Mis pedidos realizados</h3>
+                {% endif %}
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Observacion</th>
+                        <th>Detalle</th>
+                        <th>Estado</th>
+                        <th>Accion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td> {{ pedido.fecha_alta }} </td>
+                            <td> {{ pedido.observacion }} </td>
+                            <td><a href="./?action=detalle_pedido&id={{ pedido.id }}&from={{ vista }}">Ver detalle</a></td>
+                            <td>{% if pedido.estado_id == 0 %} Pendiente {% elseif pedido.estado_id == 1 %} Cancelado {% if pedido.motivo_cancelacion != ''%}( {{ pedido.motivo_cancelacion }} ){% endif %} {% else %} Entregado  {% endif %}</td>
+                            <td class="acciones">
+                                {% if pedido.estado_id == 0 %}
+                                    {% if vista == 'gestion' %}
+                                        <a href="javascript:aceptar({{ pedido.id }})"><button class="buttonModificar">Aceptar</button></a>
+                                    {% endif %}
+                                    <a href="javascript:cancelar({{ pedido.id }}, 'pedidos', '{{ vista }}')"><button class="buttonEliminar">Cancelar</button></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                {% if vista == 'gestion' %}
+                    <h2>Aun no se han recibido pedidos</h2>
+                {% else %}
+                    <h2>Aun no has realizado pedidos</h2>
+                {% endif %}
+            {% endif %}
+        </article>
+    </section>
+{% endblock %}

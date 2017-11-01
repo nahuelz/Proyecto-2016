@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modificar Producto{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+    	{% for prod in producto %}
+		<article>
+			<h1>Datos del producto:</h1>
+			<form method="POST" name="modificar_producto" action="./?action=modificar_producto_system">
+				<input type="hidden" value="{{token}}" name="token">
+				<input type="hidden" name="id" value="{{ prod.id }}">
+				<label>Nombre:</label>
+				<input type="text" name="nombre" value="{{ prod.nombre }}" required autofocus>
+				<label>Marca:</label> 
+				<input type="text" name="marca" value="{{ prod.marca }}" required>
+				<label>Codigo de barra:</label> 
+				<input type="text" name="codigo_barra" value="{{ prod.codigo_barra }}" required>
+				<label>Cantidad de stock:</label> 
+				<input type="number" name="stock" value="{{ prod.stock }}" min="0" required>		
+				<label>Cantidad minima de stock:</label> 
+				<input type="number" name="stock_minimo" value="{{ prod.stock_minimo }}" min="0" required>
+				<label>Categoria:</label>
+				<select name="categoria" required>
+					{% for categoria in categorias %}
+						<option value="{{ categoria.nombre }}" {% if categoria.id == prod.categoria_id %} selected {% endif %}>{{ categoria.nombre }}</option>
+					{% endfor %}
+				</select>
+				<label>Proveedor:</label> 
+				<input type="text" name="proveedor" value="{{ prod.proveedor }}" required>
+				<label>Descripcion:</label> 
+				<input type="text" name="descripcion" value="{{ prod.descripcion }}" required>
+				<label>Precio de venta unitario:</label> 
+				<input type="number" name="precio_venta_unitario" value="{{ prod.precio_venta_unitario }}" min="0" step="0.01" required>
+				<input type="reset" value="Restablecer">
+				<input type="submit" value="Modificar">
+			</table>
+			</form>
+		</article>
+		{% endfor %}
+	</section>
+{% endblock %}

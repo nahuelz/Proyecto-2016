@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Listar ingresos{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+		    {% if ingresos %}
+    			<h3>Listado de ingresos</h3>
+    			<table>
+    				<thead>
+    					<tr>
+    					<th>producto</th>
+    					<th>cantidad</th>
+    					<th>precio unidad</th>
+    					<th>fecha alta</th>
+    					<th>Acciones</th>
+    					</tr>
+    				</thead>
+    
+    				<tbody>
+    					{% for ingreso in ingresos %}
+    						<tr>
+    							<td> {{ ingreso.nombreProducto[0][0] }} </td>
+    							<td> {{ ingreso.cantidad }} </td>
+    							<td> ${{ ingreso.precio_unitario }}</td>
+    							<td> {{ ingreso.fecha }}</td>
+    							<td class="acciones">
+    								<a href="javascript:eliminar({{ ingreso.id }}, 'eliminar_ingreso')"><button class="buttonEliminar">Eliminar</button></a>
+    							</td>
+    						</tr>
+    					{% endfor %}
+    				</tbody>
+    			</table>
+    			{% set url = 'listar_ingresos' %}
+    			{% include 'paginado.html.twig' %}
+    		{% else %}
+    		    <h3>No existen ventas registradas.</h3>
+    		{% endif %}
+		</article>
+	</section>
+{% endblock %}

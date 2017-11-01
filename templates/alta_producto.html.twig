@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Alta de producto{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+			<h2>Alta producto</h2>
+			<form method="POST" name="alta_producto" action="./?action=alta_producto_system">
+				<input type="hidden" value="{{token}}" name="token">
+				<h3>Nombre:</h3>
+				<input type="text" id="nombre" name="nombre" placeholder="Nombre" minlength="4" required autofocus>
+				<h3>Marca:</h3>
+				<input type="text" id="marca" name="marca" placeholder="Marca" minlength="4" required>
+				<h3>Código de barra:</h3>
+				<input type="number" id="codigoBarra" name="codigo_barra" placeholder="Código de barra" required>
+				<h3>Cantidad de stock:</h3>
+				<input type="number" id="stock" name="cantidad_stock" value="0" min="0">
+				<h3>Cantidad mínima de stock:</h3>
+				<input type="number" id="stockMin" name="cantidad_minima_stock" value="0" min="0" required>
+				<h3>Categoría:</h3>
+				<select id="categoria" name="categoria" required>
+					{% for categoria in categorias %}
+						<option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+					{% endfor %}
+				</select>
+				<h3>Proveedor:</h3>
+				<input type="text" id="proveedor" name="proveedor" minlength="4" placeholder="Proveedor" required>
+				<h3>Precio de venta unitario:</h3>
+				<input type="number" id="precio" name="precio_venta_unitario" value="0" min="0" step="0.01" required>
+				<h3>Descripcion:</h3>
+				<input type="textarea" name="descripcion" placeholder="Descripcion">
+				<h3>Fecha alta:</h3>
+           		<input type="text" class="classText" id="fechaAlta" name="fechaAlta" value="{{ "now"|date("d/m/Y") }}" disabled>
+				
+				<input class="altaProducto" type="submit" value="Dar de alta">
+				<input type="reset" value="Restablecer">
+			</form>
+		</article>
+	</section>
+{% endblock %}

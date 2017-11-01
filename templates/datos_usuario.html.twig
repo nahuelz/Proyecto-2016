@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Datos de usuario{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+    	{% for user in datosUsuario.usuario %}
+		<article>
+			<h1>Datos de Usuario:</h1>
+
+			<table id=datos_usuario>
+				<tr>
+					<th>Usuario</th> <td>{{ user.usuario }}</td>
+				</tr>
+				<tr>
+					<th>Apellido</th> <td>{{ user.apellido }}</td>
+				</tr>
+				<tr>
+					<th>Nombre</th> <td>{{ user.nombre }}</td>
+				</tr>
+				<tr>
+					<th>DNI</th> <td>{{ user.documento }}</td>
+				</tr>
+				<tr>
+					<th>eMail</th> <td>{{ user.email }}</td>
+				</tr>
+				<tr>
+					<th>Telefono</th> <td>{{ user.telefono }}</td>
+				</tr>
+				<tr>
+				{% if user.habilitado == 1 %}
+					<th>Estado de la cuenta:</th> <td>Habilitado</td>
+				{% else %}
+					<th>Estado de la cuenta:</th> <td>No Habilitado</td>
+				{% endif %}
+				</tr>
+
+				{% for trabajo in datosUsuario.ubicacion %}
+				<tr>
+					<th>Nombre del lugar de trabajo</th> <td>{{ trabajo.nombre }}</td>
+				</tr>
+				<tr>
+					<th>Descripcion del lugar de trabajo</th> <td>{{ trabajo.descripcion }}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+			<a href="./?action=listar_usuarios"><button>Volver</button></a>
+		</article>
+		{% endfor %}
+	</section>
+{% endblock %}

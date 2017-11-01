@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Listar productos{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+		    {% if productos %}  
+    			<h3>Listado de productos {{ tipo }}</h3>
+    			<table>
+    				<thead>
+    					<tr>
+    					<th>Nombre</th>
+    					<th>Marca</th>
+    					<th>Stock actual</th>
+    					<th>Precio de venta</th>
+    					</tr>
+    				</thead>
+    
+    				<tbody>
+    					{% for producto in productos %}
+    						<tr>
+    							<td> {{ producto.nombre }} </td>
+    							<td> {{ producto.marca }} </td>
+    							<td> {{ producto.stock }} </td>
+    							<td> ${{ producto.precio_venta_unitario}} </td>
+    						</tr>
+    					{% endfor %}
+    				</tbody>
+    			</table>
+    			{% if tipo == "faltantes" %}
+    				{% set url = 'listar_productos_faltantes' %}
+    			{% else %}
+    				{% set url = 'listar_productos_stockMin' %}
+    			{% endif %}
+    			{% include 'paginado.html.twig' %}
+    		{% else %}
+    		    <h3>No existen productos {{ tipo }}.</h3>
+    		{% endif %}
+		</article>
+	</section>
+{% endblock %}

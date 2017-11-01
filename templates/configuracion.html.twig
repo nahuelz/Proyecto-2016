@@ -1,0 +1,86 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Configuracion{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+			<h2>Configuracion del sistema</h2>
+			<form method="POST" name="configuracion" action="./?action=configuracion_system">
+				<input type="hidden" value="{{token}}" name="token">
+				<fieldset>
+					<h3>Informacion del buffer</h3>
+					<label>Titulo</label>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "titulo") %}
+							<input type="text" name="titulo" value="{{ conf.valor }}" required autofocus>	
+						{% endif %}
+					{% endfor %}										
+					<label>Descripcion</label>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "descripcion") %}
+							<input type="textarea" name="descripcion" value="{{ conf.valor }}" required>	
+						{% endif %}
+					{% endfor %}	
+					<label>Mail de contacto</label>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "email") %}
+							<input type="email" name="email" value="{{ conf.valor }}" required>	
+						{% endif %}
+					{% endfor %}
+				</fieldset>
+				<fieldset>
+					<h3>Configuracion de listados</h3>
+					<label>Cantidad de elementos por pagina</label>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "cant_elementos") %}
+							<input type="number" name="cant_elementos" value="{{ conf.valor }}" min="1" required>	
+						{% endif %}
+					{% endfor %}
+				</fieldset>
+				<fieldset>
+					<h3>Sitio</h3>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "sitio") %}
+							{% if (conf.valor == "Habilitado") %}
+								<input class="radio" type="radio" name="sitio" value="Habilitado" checked="checked" required>Habilitado
+								<input class="radio" type="radio" name="sitio" value="Deshabilitado" required>Deshabilitado
+							{% else %}
+								<input class="radio" type="radio" name="sitio" value="Habilitado" required>Habilitado
+								<input class="radio" type="radio" name="sitio" value="Deshabilitado" checked="checked" required>Deshabilitado 
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</fieldset>
+				<fieldset>
+					<h3>Configuracion de pedidos</h3>
+					<label>Tiempo disponible para cancelar un pedido</label>
+					{% for conf in configuracion %}
+						{% if (conf.clave == "tiempoCancelacion") %}
+							<input type="number" name="tiempoCancelacion" value="{{ conf.valor }}" min="1" max="59" required>
+						{% endif %}
+					{% endfor %}
+				</fieldset>
+				<fieldset>
+					<h3>Mensaje de deshabilitacion</h3>
+					<label>Mensaje</label>
+					{% for conf in configuracion %}	
+						{% if (conf.clave == "mensaje") %}
+							<input type="text" name="mensaje" value="{{ conf.valor }}" required>	
+						{% endif %}
+					{% endfor %}
+				</fieldset>
+				<input type="submit" value="Confirmar">
+				<input type="reset" value="Restablecer">
+			</form>
+		</article>
+	</section>
+{% endblock %}

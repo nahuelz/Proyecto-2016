@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ingresar{% endblock %}
+
+{% block container %}
+    <section id="ancho_total">
+		<article>
+			<form method="POST" name="login" action="./?action=login_system">
+				<fieldset id="login">
+					{% if sitio == "Deshabilitado" %}
+						<h1>Solo el administrados pude logearse</h1>
+						<input type="hidden" id="habilitado" name="habilitado" value="0" >
+					{% else %}
+						<h1>Ingrese los siguientes datos:</h1>
+						<input type="hidden" id="habilitado" name="habilitado" value="1" >
+					{% endif %}
+					<legend>Inicio de Sesión</legend>
+					<h3>Usuario:</h3>
+					<input type="text" name="username" placeholder="Usuario..." autofocus required><br>
+					<h3>Contraseña:</h3>
+					<input type="password" name="password" placeholder="Contraseña..." required><br>
+					<input type="submit" value="Login">
+				</fieldset>
+			</form>
+		</article>
+	</section>
+{% endblock %}

@@ -1,0 +1,83 @@
+aside ul{
+    background-color: #1d1d1d;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+aside ul ul li a{
+    margin-left: 10px;
+
+    /*Color del fondo del sub-boton*/
+    background-color: #939393;
+    /*Color del texto de los sub-botones*/
+    color: #000000;
+}
+
+aside ul ul li a:hover{
+    /*Color del fondo del sub-boton cuando se posa sobre el*/
+    background-color: #444444;
+    /*Color del texto de los sub-botones*/
+    color: #ffffff;
+}
+
+aside ul li{
+    transition: 0.2s linear all;
+    font-size: 18px;
+    font-weight: bold;
+
+    /*Color de la parte izquierda del fondo del sub-boton*/
+    background-color: #444444;
+}
+
+aside ul li a{
+    transition: 0.2s linear all;
+    display: block;
+    padding: 16px;
+    padding-left: 5%;
+    text-decoration: none;
+
+    /*Color del texto de los botones*/
+    color: #ffffff;
+}
+
+aside ul li a:hover{
+    transition: 0.2s linear all;
+
+    /*Color del texto cuando se posa sobre el*/
+    color: #1d1d1d;
+}
+
+.deslegable01{
+    /*Color del boton cuando esta desplegado (Tiene que ser igual que el del hover)*/
+    background-color: #444444;
+}
+
+.deslegable01:hover{
+    /*Color del boton cuando esta desplegado y se posa sobre el*/
+    background-color: #939393;
+}
+
+.deslegable02{
+    /*Color del boton cuando NO esta desplegado (Tiene que ser igual que el del hover)*/
+    background-color: #1d1d1d;
+}
+
+.deslegable02:hover{
+    /*Color del boton cuando NO esta desplegado y se posa sobre el*/
+    background-color: #939393;
+}
+
+@media (min-width: 1001px) {
+    aside{
+        width: 22.8%;
+        float: left;
+    }
+}
+
+@media (max-width: 1000px) {
+    aside{
+        width: 100%;
+        margin-bottom: 2px;
+    }
+}

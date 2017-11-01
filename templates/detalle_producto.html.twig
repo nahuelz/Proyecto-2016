@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Detalle Producto{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+    	{% for prod in producto %}
+		<article>
+			<h1>Detalles del producto:</h1>
+
+			<table id=datos_usuario>
+				<tr>
+					<th>Nombre</th> <td>{{ prod.nombre }}</td>
+				</tr>
+				<tr>
+					<th>Marca</th> <td>{{ prod.marca }}</td>
+				</tr>
+				<tr>
+					<th>Codigo de barra</th> <td>{{ prod.codigo_barra }}</td>
+				</tr>
+				<tr>
+					<th>Stock actual</th> <td>{{ prod.stock }}</td>
+				</tr>
+
+				{% if online == 0  %}
+					<tr>
+						<th>Stock minimo</th> <td>{{ prod.stock_minimo }}</td>
+					</tr>
+					<tr>
+						<th>Categoria</th> <td>
+												{% for cat in categorias %}
+													{% if cat.id == prod.categoria_id %}
+														{{ cat.nombre }}
+													{% endif %}
+												{% endfor %}
+											</td>
+					</tr>
+					<tr>
+						<th>Proveedor</th> <td>{{ prod.proveedor }}</td>
+					</tr>
+					<tr>
+						<th>Fecha alta</th> <td>{{ prod.fecha_alta }}</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<th>Precio venta</th> <td>{{ prod.precio_venta_unitario }}</td>
+				</tr>
+				<tr>
+					<th>Descripcion</th> <td>{{ prod.descripcion }}</td>
+				</tr>
+			</table>
+			{% if online == 0 %}
+				<a href="./?action=listar_productos"><button>Volver</button></a>
+			{% else %}
+				<a href="./?action=menu_del_dia"><button>Volver</button></a>
+			{% endif %}
+		</article>
+		{% endfor %}
+	</section>
+{% endblock %}

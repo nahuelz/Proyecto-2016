@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block container %}
+    <section id="ancho_total">
+    	{% if sitio == "Deshabilitado" %}
+    		<article>
+				<h1>{{ mensajeDeshabilitado }}</h1>
+			</article>
+		{% else %}
+			<article>
+				<h1>{{ titulo }}</h1>
+				<p>
+					{{ descripcion }}
+				</p>
+			</article>
+		{% endif %}
+	</section>
+{% endblock %}

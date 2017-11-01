@@ -1,0 +1,97 @@
+.izq{
+	float: left;
+}
+
+.der{
+	float: right;
+}
+
+.hidden{
+    display: none;
+}
+
+nav{
+    background-color: #2e3031; /*Color de la barra de navegacion*/
+    position: fixed;
+    top:0;
+    right:0;
+    left:0;
+    z-index: 1;
+}
+
+nav ul{
+    max-width: 1200px;
+    width: 100%;
+    list-style: none;
+    margin: auto;
+    padding: 0px;
+}
+
+nav ul li{
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.4s linear all;
+    height: 60px;
+}
+
+#sub ul li:hover{
+    transition: 0.4s linear all;
+    background-color: #c5dce7; /*Color del fondo del boton cuando se posa sobre el*/
+}
+
+
+ul li a:hover{
+    transition: 0.4s linear all;
+    background-color: #c5dce7; /*Color del fondo del boton cuando se posa sobre el*/
+}
+
+
+#sub:hover{
+    background-color: transparent;
+}
+
+nav ul li a{
+    color: #eef4f8; /*Color del texto del boton del menu*/
+    display: inline-block;
+    padding: 21px 24px 21px 24px;
+    text-decoration: none;
+    transition: 0.4s linear all;
+}
+
+nav ul li a:hover{
+	transition: 0.4s linear all;
+    color: #0a1319; /*Color del texto del boton del menu cuando se posa sobre el*/
+}
+
+@media (min-width: 1001px) {
+    .hiddenIconNav{
+        display: none;
+    }
+
+    nav ul li a{
+        display: inline-block;
+    }
+
+    nav ul li{
+        text-align: center;
+    }
+}
+
+@media (max-width: 1000px) {
+    .hiddenNav{
+        display: none;
+    }
+
+    .ancho_total{
+        width: 100%;
+    }
+
+    #icono{
+        font-size: 180%;
+        padding: 10px 30px;
+    }
+
+    nav ul li a{
+        width: 100%;
+    }
+}

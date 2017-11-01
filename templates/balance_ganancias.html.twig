@@ -1,0 +1,108 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Balance de ganancias{% endblock %}
+
+{% block container %}
+	{% if mensaje %}
+		{% for m in mensaje %}
+			<div id="message">
+				{{ m }}
+			</div>
+		{% endfor %}
+	{% endif %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+		<article>
+                <form method="POST" action="./?action=listarGanancias">
+                    <fieldset>
+                    <legend>Buscar ganancias por fechas</legend>
+                        <label>Fecha inicio:</label>
+                        <input class="filtradoFechaInput" value="{{ fechaInicio[0] }}" type="date" name="fechaInicio" id="fechaInicio" required>
+                        <label>Fecha fin:</label>
+                        <input class="filtradoFechaInput" value="{{ fechaFin[0] | date("Y-m-d") }}" type="date" name="fechaFin" required>
+                        <input class="filtradoFechaButton" type="submit" id="filtrarFechas" value="Buscar">
+                    </fieldset>
+                </form>
+			<div id="chartUno" style="min-width: 400px;"></div>
+			<div id="listadoVentas">
+				{% if ganancias %}
+					{% if fechaInicio != null %}
+						<h3>Listado de Ingresos entre {{ fechaInicio[0] | date("d-m-Y") }} y {{fechaFin | date("d-m-Y")}}</h3>
+					{% else %}
+						<h3>Listado de Ingresos</h3>
+					{% endif %}
+					<table>
+						<thead>
+						<tr>
+							<th>Dia</th>
+							<th>Ingresos</th>
+						</tr>
+						</thead>
+
+						<tbody>
+						{% if ganancias != null %}
+							{% for ganancia in ganancias %}
+
+								<tr>
+									<td> {{ ganancia[0] | date("d-m-Y") }} </td>
+									<td> ${{ ganancia[1] }} </td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+						</tbody>
+					</table>
+				{% else %}
+					<h3>Ingrese dos fechas</h3>
+				{% endif %}
+			</div>
+		</article>
+	</section>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+        var options = {
+            chart: {
+                renderTo: 'chartUno',
+                type: 'column'
+            },
+            title: {
+                text: 'Ganancias entre {{fechaInicio}} y {{fechaFin}}'
+            },
+            plotOptions: {
+                series: {
+                  color:'#b2f4a4',
+                    negativeColor: '#f74040'
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: { // don't display the dummy year
+                    month: '%e. %b',
+                    year: '%b'
+                },
+                title: {
+                    text: 'Fechas'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Ganancia'
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x:%e. %b}: ${point.y:.2f}'
+            },
+
+            series: [{}]
+        };
+
+        var dataDos = {{dataGan|raw}};
+        options.series[0].name = 'Ganancias';
+        options.series[0].data = dataDos;
+        var chartDos = new Highcharts.Chart(options);
+    });
+</script>
+
+{% endblock %}

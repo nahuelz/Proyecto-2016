@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Cancelar Pedido{% endblock %}
+
+{% block container %}
+    {% include 'aside.html.twig' %}
+    <section id="ancho_parcial">
+        <article>
+            <div class="center">
+                <h1>Cancelar pedido</h1>
+                <form method="POST" action="./?action=pedidos&function=cancelar_pedido_system">
+                    <input type="hidden" name="pedidoId" value="{{ pedidoId }}">
+                    <input type="hidden" name="from" value="{{ from }}">
+                    <label for="motivo"><h3>Ingrese un motivo </h3></label>
+                    <textarea id="motivo" name="motivo" cols="30" rows="5"></textarea><br>
+                    <input type="submit" value="Aceptar">
+                </form>
+                <a href="./?action=pedidos&function=gestionar_pedidos"><button class="volver">Volver</button></a>
+            </div>
+        </article>
+    </section>
+{% endblock %}
